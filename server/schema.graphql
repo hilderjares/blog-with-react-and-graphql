@@ -1,0 +1,49 @@
+type Post {
+    id: ID!
+    title: String!
+    createdAt: String
+    content: String
+    published: Boolean
+    author: User
+    authorId: ID
+    category: Category
+    categoryId: ID
+}
+
+type User {
+    id: ID!
+    email: String
+    name: String
+    posts: [Post]
+}
+
+type Category {
+    id: ID!
+    name: String!
+    posts: [Post!]!
+}
+
+type Query {
+    users: [User!]!
+    user(email: String): User
+    userPosts(email: String): [Post!]!
+    posts: [Post!]!
+    feed: [Post!]!
+}
+
+type ObjectUser {
+    token: String!
+    user: User!
+}
+
+type Mutation {
+    login(email: String!, password: String!): ObjectUser
+    createUser(name: String!, email: String!, password: String!): ObjectUser
+    createPost(
+        title: String!
+        content: String
+        published: Boolean
+        email: String!
+        category: String!
+    ): Post
+}
